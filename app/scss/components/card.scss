@@ -1,2 +1,135 @@
-@use '../globals' as *;
-@use '../util' as *;
+@use "../globals" as *;
+@use "../util" as *;
+%style-for-cards {
+  padding-top: 30px;
+}
+
+body {
+  line-height: 1.5;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "sedan suv luxury";
+
+  & > * {
+    max-width: 256px;
+    min-height: 400px;
+    padding: rem(33);
+  }
+
+  img {
+    padding-top: 10px !important;
+    width: 50px;
+  }
+  h1 {
+    text-transform: uppercase;
+    font-size: rem(30);
+    color: $transparen-white;
+    font-weight: 700;
+  }
+  p {
+    color: $transparen-white;
+
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 12px;
+    // font-weight: 0;
+  }
+  button {
+    margin-top: rem(30);
+    padding: 10px 20px;
+    margin-bottom: 5px;
+    @include border-radius(30px);
+    border: none;
+    font-size: 12px;
+    font-family: "Lexend Deca", sans-serif;
+  }
+
+  .sedans {
+    grid-area: sedan;
+
+    background-color: $bright-orange;
+    & > * {
+      @extend %style-for-cards;
+    }
+
+    @include border-radius(10px, 0, 0, 10px);
+
+    button {
+      color: $bright-orange;
+      &:hover {
+        background-color: $bright-orange;
+        border: 1px solid $transparen-white;
+        color: $transparen-white;
+      }
+    }
+  }
+  .suvs {
+    grid-area: suv;
+
+    background-color: $dark-cyan;
+    & > * {
+      @extend %style-for-cards;
+    }
+    button {
+      color: $dark-cyan;
+
+      &:hover {
+        background-color: $dark-cyan;
+        border: 1px solid $transparen-white;
+        color: $transparen-white;
+      }
+    }
+  }
+  .luxury {
+    grid-area: luxury;
+
+    background-color: $very-dark-cyan;
+    & > * {
+      @extend %style-for-cards;
+    }
+    button {
+      color: $very-dark-cyan;
+      &:hover {
+        background-color: $very-dark-cyan;
+        border: 1px solid $transparen-white;
+        color: $transparen-white;
+      }
+    }
+    @include border-radius(0, 10px, 10px, 0);
+  }
+
+  @include breakpoint-down("small") {
+    grid-template-columns: 1fr;
+
+    grid-template-areas:
+      "sedan"
+      "suv"
+      "luxury";
+    .sedans {
+      @include border-radius(10px, 10px, 0, 0);
+    }
+    .luxury {
+      @include border-radius(0, 0, 10px, 10px);
+    }
+  }
+}
+
+@include breakpoint-down("small") {
+  .card > * {
+    min-width: 275px !important;
+    min-height: 320px;
+  }
+}
+
+@media only screen and (max-width: 760px) {
+  .card > * {
+    padding: rem(10) !important;
+  }
+}
